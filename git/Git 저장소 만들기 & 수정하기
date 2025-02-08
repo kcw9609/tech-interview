@@ -105,6 +105,24 @@ $ git commit -m "메세지"
 - Staging Area 생략하기
 $ git commit -a -m '메세지'
 
+- 파일 삭제하기
+Git에서 파일을 제거하려면 git rm 명령으로 Tracked 상태의 파일을 삭제한 후에(정확히는 Staging Area에서 삭제하는 것) 커밋해야 한다
+이 명령은 디렉토리에 있는 파일도 삭제하기 때문에 실제로 파일도 지워진다.
 
+$ rm PROJECTS.md
+Git 명령을 사용하지 않고 단순히 워킹 디렉터리에서 파일을 삭제하고 git status 명령으로 상태를 확인하면 not staged라고 표시해준다
 
+$ git rm PROJECTS.md
+git rm 명령을 실행하면 삭제한 파일은 바로 Staged 상태가 된다.
+커밋하면 파일은 삭제되고 Git은 이 파일을 더는 추적하지 않는다. 이미 파일을 수정했거나 Staging Area에 -f 옵션을 주어 강제로 삭제해야 한다. 이 점은 실수로 데이터를 삭제하지 못하도록 하는 안전장치다. 
 
+$ git rm --cached README
+또 Staging Area에서만 제거하고 워킹 디렉토리에 있는 파일은 지우지 않고 남겨둘 수 있다.
+
+- 파일 이름 변경하기
+$ git mv file_form file_to
+위 명령은 아래의 명령어를 수행한 것과 같다.
+git mv 명령은 일종의 단축 명령어이다. 편리하게 명령을 세번 실행해주는 것 뿐이다.
+$ mv README.md README
+$ git rm README.md
+$ git add README
