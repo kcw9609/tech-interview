@@ -1,0 +1,60 @@
+- 커밋 히스토리 조회하기
+$ git log
+각 커밋의 SHA-1 체크섬, 저자 이름, 이메일, 커밋한 날짜, 커밋 메세지를 보여준다
+
+$ git log -p -2
+최근 두개의 각 커밋의 diff 결과를 보여준다
+
+$ git log -S function_name
+코드에서 추가되거나 제거된 내용 중에서 특정 텍스트가 포함되어 있는지를 검색한다
+
+옵션
+-(n) : 최근 n개의 커밋만 조회한다
+--since, --aften : 명시한 날짜 이후의 커밋만 검색한다
+--until, --before : 명시한 날짜 이전의 커밋만 조회한다
+--author : 입력한 저자의 커밋만 보여준다
+--committer : 입력한 커미터의 커밋만 보여준다
+--grep : 커밋 메세지 안의 텍스트를 검색한다
+-S : 커밋 변경(추가/삭제) 내용 안의 텍스트를 검색한다
+
+- 되돌리기
+종종 완료한 커밋을 수정해야 할 때가 있다. 
+--너무 일찍 커밋했거나 
+--어떤 파일을 배먹었을 때 
+--커밋 메세지를 잘못 적었을때
+ $ git commit --amend
+ Staging Area를 사용하여 커밋한다. 
+
+--예시
+$ git commit -m 'initial commit'
+$ git add forgotten_file
+$ git commit --amend
+여기서 실행한 명력ㅇ어 3개는 모두 커밋 한 개로 기록된다.
+두 번째 커밋은 첫 번째 커밋을 덮어쓴다
+
+-파일 상태를 Unstage로 변경하기
+Staging Area와 워킹 디렉토리 사이를 넘나드는 방법이다
+예를 들어 파일을 두 개 수정하고서 따로 따로 커밋하려고 했지만, 실수로 git add * 라고 실행해 버렸다
+두 파일 모두 Satging Area에 들어 있다. 이 경우 둘 중 하나를 꺼낼 수 있다
+
+--예시
+$ git add *
+$ git status
+$ git reset HEAD CONTRIBUTING.md
+커밋되어 Staging area에 들어가있던 CONTRIBUTING.md파일이 Unstaged상태가 되었다
+
+- Modified 파일 되돌리기
+CONTRUBUTING.md 파일을 수정하고 나서 다시 되돌리는 방법
+최근 커밋된 버전으로 되돌리는 방법
+$ git status
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+    modified:   CONTRIBUTING.md
+  위 명령을 하면 방법을 알려준다
+$ git checkout -- [파일명]
+정상적으로 복원이 된다
+
+변경할 내용을 쉽게 버릴 수는 없고 하지만 당장은 되돌려야만 하는 상황이라면
+Stash와 Branch를 사용하자
